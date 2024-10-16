@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
- "scripts": {
-  "test": "mocha test/create_order.js  --reporter mochawesome --reporter-options reportDir=mochawesome"
-},
+  "scripts": {
+    "test": "mocha test/create_order.js  --reporter mochawesome --reporter-options reportDir=mochawesome"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,6 +17,10 @@
     "supertest": "^7.0.0"
   },
   "dependencies": {
-    "axios": "^1.7.7"
+    "axios": "^1.7.7",
+    "chromedriver": "^129.0.4",
+    "glob": "^11.0.0",
+    "selenium-webdriver": "^4.25.0",
+    "xlsx": "^0.18.5"
   }
 }
