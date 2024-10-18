@@ -1,4 +1,4 @@
-import {bulk_order_creation} from '../bulk_actions.js';
+import {bulk_order_creation} from '../generic_functions/bulk_actions.js';
 
 
 // const bulk_action_file = `${root}/pickup`;
