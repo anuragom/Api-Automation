@@ -14,13 +14,13 @@ const runTests = async () => {
 
     let testResults = [];
 
-    const loginResult = await login(); // Ensure login is performed once before running the tests
+    const loginResult = await login(); 
 
     for (const file of testFiles) {
         const fileUrl = pathToFileURL(file).href;
         try {
             const testModule = await import(fileUrl);
-
+            console.log('jdhjfhdhf',testModule);
             for (const testName in testModule) {
                 if (typeof testModule[testName] === 'function') {
                     const startTime = Date.now();
@@ -49,6 +49,7 @@ const runTests = async () => {
         }
     }
 
+     
     generateHtmlReport(testResults, `${__dirname}/test-report.html`);
 };
 

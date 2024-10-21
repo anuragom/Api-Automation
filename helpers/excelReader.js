@@ -1,5 +1,7 @@
 import XLSX from 'xlsx';
 import { readFile } from 'fs/promises'; // Assuming you're using fs/promises to read files
+import fs from 'fs';
+import path from 'path';
 
 export const getTestData = async (testCaseName,excelName, sheetName) => {
   try {
@@ -106,6 +108,23 @@ export const FetchExcelData = async (filePath) => {
   return { validHeaders: headers, validData };
 }
 
+export const getMostRecentFile = async(dirPath) => {
+  const files = fs.readdirSync(dirPath);
+  let recentFile = null;
+
+  files.forEach((file) => {
+    const filePath = path.join(dirPath, file);
+    const fileStats = fs.statSync(filePath);
+
+    if (!fileStats.isDirectory()) {
+      if (!recentFile || fileStats.mtime > fs.statSync(recentFile).mtime) {
+        recentFile = filePath;
+      }
+    }
+  });
+
+  return recentFile;
+}
 
 // export const validateExcelData = async () =>{
 

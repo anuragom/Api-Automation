@@ -1,4 +1,4 @@
-// import { getTestData } from '../../helpers/excelReader.js';
+import { FetchExcelData, getMostRecentFile } from '../../helpers/excelReader.js';
 import { By, until } from 'selenium-webdriver';
 import { Select } from 'selenium-webdriver/lib/select.js';
 
@@ -16,7 +16,7 @@ export const bulk_import_actions = async (all_locators, driver, fileName, data_f
     // Simulate mouse hover and other actions
     await actions.move({ origin: loc_menu }).perform();
     console.log('Mouse hovered over the menu');
-
+    await driver.sleep(1000);
     let loc_menu_tools = await driver.findElement(By.xpath(all_locators.Main_Menu_Tool_Item));
     // await driver.executeScript('arguments[0].scrollIntoView({behavior: "smooth", block: "center"})', loc_menu_tools);
     await driver.wait(until.elementIsVisible(loc_menu_tools), 10000);
@@ -33,6 +33,7 @@ export const bulk_import_actions = async (all_locators, driver, fileName, data_f
 
     const dropdown = await driver.wait(until.elementLocated(By.id('mySelect')), 5000);
     await dropdown.click();
+    await driver.sleep(1000);
     const select = new Select(dropdown);
     await select.selectByVisibleText(fileName);// Order Creation
 
@@ -55,21 +56,29 @@ export const bulk_import_actions = async (all_locators, driver, fileName, data_f
     // await actions.move({ origin: loc_upload_file }).perform();
     await loc_upload_file.click();
     
+     
+
+
+    //varify the pop message for success
+    const getCurrentEpochInIST = () => {
+      const currentTime = new Date();
+      const istOffset = 5 * 60 * 60 * 1000 + 30 * 60 * 1000; // 5 hours 30 minutes in milliseconds
+      const currentTimeInIST = new Date(currentTime.getTime() + istOffset);
     
-
-
-    // //varify the pop message for success
-    // const getCurrentEpochInIST = () => {
-    //   const currentTime = new Date();
-    //   const istOffset = 5 * 60 * 60 * 1000 + 30 * 60 * 1000; // 5 hours 30 minutes in milliseconds
-    //   const currentTimeInIST = new Date(currentTime.getTime() + istOffset);
+      const adjustmentInMilliseconds = -19749753; // Adjust to get your desired result (negative to subtract time)
       
-    //   // Convert IST time to epoch (seconds since January 1, 1970)
-    //   return Math.floor(currentTimeInIST.getTime() / 1000);
-    // };
-    // // store the upload time
-    // const upload_time = getCurrentEpochInIST();
-    // console.log('upload_time',upload_time);
+      const time = (currentTimeInIST.getTime() + adjustmentInMilliseconds).toString();
+      console.log(time);
+      // Return the adjusted epoch time in milliseconds
+      return time.substring(0,6);
+    };
+    
+    console.log(getCurrentEpochInIST());
+    
+    
+    // store the upload time
+    const upload_time = getCurrentEpochInIST();
+    console.log('upload_time',upload_time);
 
     // click on activity log button
 // Wait for the element to be present
@@ -87,7 +96,13 @@ await sleep(2000);
 // Click the element once it's visible and ready
 await loc_activity_log.click();
 
-//  return { upload_time };
+//refresh the page
+// await driver.navigate().refresh();
+
+
+await driver.sleep(2000);
+
+ return { upload_time };
   } catch (error) {
     console.error('Error during bulk order creation:', error);
   }
