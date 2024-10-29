@@ -54,3 +54,13 @@ export function getExpectedAssertionsLogin() {
     status: true
   };
 }
+
+export const getExpectedAssertionsInternalBulkActions = async (msg) =>{
+  return{
+    status: true,
+    msg: msg,
+    statusMessage: 'Expected status to be true',
+    msgMessage: 'Expected message to be correct',
+  }
+}
+

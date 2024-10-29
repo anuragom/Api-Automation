@@ -29,3 +29,12 @@ export function validateLoginResponse(responseData, expectedAssertions){
      expect(responseData.order_id).to.equal(expectedAssertions.orderId, expectedAssertions.orderIdMessage);
      expect(responseData.remarks).to.equal(expectedAssertions.remarks, expectedAssertions.remarksMessage);
 }
+
+
+export const validateBulkOrderResponse = async (responseData, expectedAssertions)=>{
+  expect(responseData).to.have.property('status');
+  expect(responseData).to.have.property('msg');
+  
+  expect(responseData.status).to.have(expectedAssertions.status, expectedAssertions.statusMessage);
+  expect(responseData.msg).to.have(expectedAssertions.msg, expectedAssertions.msgMessage);
+}

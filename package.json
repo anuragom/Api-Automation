@@ -4,7 +4,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/create_order.js  --reporter mochawesome --reporter-options reportDir=mochawesome"
+    "test": "mocha test/create_order.js  --reporter mochawesome --reporter-options reportDir=mochawesome",
+    "test-internal-apis": "mocha test-internal-apis/bulk_order_creation.js --reporter mochawesome --reporter-options reportDir=mochawesome --timeout 100000"
   },
   "keywords": [],
   "author": "",
