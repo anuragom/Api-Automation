@@ -1,4 +1,41 @@
+import fs from 'fs';
+import FormData from 'form-data';
+import path from 'path';
+
 // payload.js
+
+
+// internal apis
+export function seller_portal_login_Payload(){
+  return JSON.stringify(
+      {
+      "email":"anmoldhama98@gmail.com",
+      "password": "Translam@2"
+}
+)
+}
+
+// export function seller_portal_wallet_balance_payload(){
+//   return JSON.stringify(
+//     {
+//     "email":"anmoldhama98@gmail.com",
+//     "password": "Translam@2"
+// }
+// )
+// }
+
+// create order
+export function bulk_order_create() {
+  const form = new FormData();
+
+  const filePath = path.join('C:', 'Users', 'anmol.dhama', 'Downloads', 'sample_bulk_order_creation (4).csv');
+
+  form.append('file', fs.createReadStream(filePath), 'sample_bulk_order_creation.csv');
+
+  form.append('import_option', 'Create');
+
+  return form;
+}
 
 //create order api
 export function createOrderPayload(){
